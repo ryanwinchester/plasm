@@ -1,5 +1,7 @@
 # Plasm
 
+[![Build Status](https://travis-ci.org/ryanwinchester/plasm.svg?branch=master)](https://travis-ci.org/ryanwinchester/plasm)
+
 Schema and Changeset for PHP inspired and modeled after [Elixir's Ecto library](https://hexdocs.pm/ecto/Ecto.Changeset.html).
 
 ### In Development!
