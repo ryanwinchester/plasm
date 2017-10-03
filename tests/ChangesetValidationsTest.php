@@ -98,6 +98,30 @@ final class ChangesetValidationsTest extends TestCase
 
     // count TODO
 
+    function test_validateCount_valid()
+    {
+        // $attrs = $this->validAttrs;
+        //
+        // $changeset = new TestChangeset(TestSchema::class, $attrs);
+        // $this->assertTrue($changeset->valid());
+
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
+
+    function test_validateCount_invalid()
+    {
+        // $attrs = $this->validAttrs;
+        //
+        // $changeset = new TestChangeset(TestSchema::class, $attrs);
+        // $this->assertFalse($changeset->valid());
+
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
+
     // exclusion
 
     function test_validateExclusion_valid()
@@ -159,7 +183,56 @@ final class ChangesetValidationsTest extends TestCase
     }
 
     // length TODO
+
+    function test_validateLength_valid()
+    {
+        // $attrs = $this->validAttrs;
+        //
+        // $changeset = new TestChangeset(TestSchema::class, $attrs);
+        // $this->assertTrue($changeset->valid());
+
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
+
+    function test_validateLength_invalid()
+    {
+        // $attrs = $this->validAttrs;
+        //
+        // $changeset = new TestChangeset(TestSchema::class, $attrs);
+        // $this->assertFalse($changeset->valid());
+
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
+
     // number TODO
+
+    function test_validateNumber_valid()
+    {
+        // $attrs = $this->validAttrs;
+        //
+        // $changeset = new TestChangeset(TestSchema::class, $attrs);
+        // $this->assertTrue($changeset->valid());
+
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
+
+    function test_validateNumber_invalid()
+    {
+        // $attrs = $this->validAttrs;
+        //
+        // $changeset = new TestChangeset(TestSchema::class, $attrs);
+        // $this->assertFalse($changeset->valid());
+
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
 
     // required
 
@@ -173,4 +246,28 @@ final class ChangesetValidationsTest extends TestCase
     }
 
     // subset TODO
+
+    function test_validateSubset_valid()
+    {
+        // $attrs = $this->validAttrs;
+        //
+        // $changeset = new TestChangeset(TestSchema::class, $attrs);
+        // $this->assertTrue($changeset->valid());
+
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
+
+    function test_validateSubset_invalid()
+    {
+        // $attrs = $this->validAttrs;
+        //
+        // $changeset = new TestChangeset(TestSchema::class, $attrs);
+        // $this->assertFalse($changeset->valid());
+
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
 }
