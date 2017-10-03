@@ -10,7 +10,7 @@ trait Validations
      */
     public function validateAcceptance($field, $message = null)
     {
-        if ($this->changes[$field] !== true) {
+        if (isset($this->changes[$field]) && $this->changes[$field] !== true) {
             $this->addError($field, 'acceptance', $message);
         }
 

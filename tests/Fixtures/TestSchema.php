@@ -19,11 +19,13 @@ class TestSchema extends Schema
             'is_admin' => ['type' => 'boolean', 'default' => false],
             'age' => ['type' => 'integer'],
             'money' => ['type' => 'float'],
-            'accept_tos' => ['type' => 'boolean', 'default' => false],
+            'accept_tos' => ['type' => 'boolean'],
             'password' => ['type' => 'string', 'virtual' => true],
             'password_confirmation' => ['type' => 'string', 'virtual' => true],
             'password_hash' => ['type' => 'string'],
-            'nothing' => ['type' => 'string', 'default' => null]
+            'foo' => ['type' => 'string'],
+            'bar' => ['type' => 'string'],
+            'banana_count' => ['type' => 'integer'],
         ];
     }
 }

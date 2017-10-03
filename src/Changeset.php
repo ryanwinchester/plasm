@@ -15,8 +15,6 @@ abstract class Changeset
     private $changes;
 
     /**
-     * Create a new Changeset.
-     *
      * @param Schema|string $schema
      * @param array|\ArrayAccess $attrs
      * @throws \TypeError
@@ -68,6 +66,8 @@ abstract class Changeset
     }
 
     /**
+     * Add a change to the Changeset.
+     *
      * @param string $field
      * @param mixed $value
      */
@@ -81,7 +81,8 @@ abstract class Changeset
     }
 
     /**
-     * Cast the fields from attrs to the types defined in the Schema.
+     * Cast the fields from attrs to the types defined in the Schema,
+     * or use the default value if not present.
      *
      * @param array|\ArrayAccess $fields
      * @return $this
@@ -103,6 +104,8 @@ abstract class Changeset
     }
 
     /**
+     * Cast an existing field.
+     *
      * @param string $field
      */
     private function castField($field)
@@ -115,6 +118,8 @@ abstract class Changeset
     }
 
     /**
+     * Whether or not to use the default value.
+     *
      * @param string $field
      * @return bool
      */
