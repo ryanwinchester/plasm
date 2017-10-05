@@ -23,6 +23,8 @@ class TestSchema extends Schema
             'password' => ['type' => 'string', 'virtual' => true],
             'password_confirmation' => ['type' => 'string', 'virtual' => true],
             'password_hash' => ['type' => 'string'],
+            'skill' => ['type' => 'array'],
+            'topic' => ['type' => 'array'],
             'foo' => ['type' => 'string'],
             'bar' => ['type' => 'string'],
             'banana_count' => ['type' => 'integer'],
