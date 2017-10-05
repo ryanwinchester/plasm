@@ -16,10 +16,9 @@ abstract class Changeset
 
     /**
      * @param Schema|string $schema
-     * @param array|\ArrayAccess $attrs
      * @throws \TypeError
      */
-    public function __construct($schema, $attrs)
+    public function __construct($schema)
     {
         $this->schema = is_string($schema) ? new $schema() : $schema;
 
@@ -27,69 +26,35 @@ abstract class Changeset
             throw new \TypeError("Invalid Schema type");
         }
 
-        $this->attrs = $attrs;
-
         $this->messages = array_merge(
             $this->defaultMessages,
             $this->messages()
         );
-
-        $this->change();
     }
 
     /**
-     * Do the things.
+     * Create a new Changeset using given Schema.
      *
-     * @return $this
+     * @param Schema|string $schema
+     * @return static
      */
-    abstract public function change();
-
-    /**
-     * Get the changes.
-     *
-     * @return array
-     */
-    public function changes()
+    public static function using($schema)
     {
-        return $this->changes;
-    }
-
-    /**
-     * Get a change for a field of return null.
-     *
-     * @param string $field
-     * @return mixed|null
-     */
-    public function getChange($field)
-    {
-        return isset($this->changes[$field]) ? $this->changes[$field] : null;
-    }
-
-    /**
-     * Add a change to the Changeset.
-     *
-     * @param string $field
-     * @param mixed $value
-     */
-    protected function addChange($field, $value = null)
-    {
-        if (!is_null($value)) {
-            $this->changes[$field] = $value;
-        } elseif (isset($this->attrs[$field])) {
-            $this->changes[$field] = $this->attrs[$field];
-        }
+        return new static($schema);
     }
 
     /**
      * Cast the fields from attrs to the types defined in the Schema,
-     * or use the default value if not present.
+     * ignores any fields not specified or uses the default value if one is
+     * defined in the Schema.
      *
+     * @param array|\ArrayAccess $attrs
      * @param array|\ArrayAccess $fields
      * @return $this
      */
-    protected function cast($fields)
+    protected function cast($attrs, $fields)
     {
-        $fields = is_string($fields) ? func_get_args() : $fields;
+        $this->attrs = $attrs;
 
         foreach ($fields as $field) {
             if ($this->shouldUseDefault($field)) {
@@ -127,5 +92,41 @@ abstract class Changeset
     {
         return !isset($this->attrs[$field])
             && isset($this->schema[$field]['default']);
+    }
+
+    /**
+     * Get the changes.
+     *
+     * @return array
+     */
+    public function changes()
+    {
+        return $this->changes;
+    }
+
+    /**
+     * Get a change for a field of return null.
+     *
+     * @param string $field
+     * @return mixed|null
+     */
+    public function getChange($field)
+    {
+        return isset($this->changes[$field]) ? $this->changes[$field] : null;
+    }
+
+    /**
+     * Add a change to the Changeset.
+     *
+     * @param string $field
+     * @param mixed $value
+     */
+    protected function addChange($field, $value = null)
+    {
+        if (!is_null($value)) {
+            $this->changes[$field] = $value;
+        } elseif (isset($this->attrs[$field])) {
+            $this->changes[$field] = $this->attrs[$field];
+        }
     }
 }

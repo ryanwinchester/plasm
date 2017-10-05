@@ -11,10 +11,10 @@ class TestChangeset extends Changeset
      *
      * @return $this
      */
-    public function change()
+    public function change($attrs)
     {
         return $this
-            ->cast([
+            ->cast($attrs, [
                 'name', 'email', 'is_admin', 'age', 'money', 'password',
                 'password_confirmation', 'skill', 'topic', 'foo', 'bar',
                 'accept_tos', 'banana_count',
