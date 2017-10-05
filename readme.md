@@ -24,8 +24,9 @@ Schema and Changeset for PHP inspired and modeled after `Ecto.Changeset` from [E
 In the schema we specify all the fields we care about and specify what type
 we want them to be cast to.
 
-Other options available are:
+Options:
 
+- `type`: required. the type the field should be cast to
 - `default`: Will default to this value if not present in changeset `$attrs`
 - `virtual`: This will be a future to mark fields as not for storing
 
@@ -55,7 +56,7 @@ class UserSchema extends Schema
 
 #### 2) Define a Changeset:
 
-You can define multiple changesets in the same class. You can create complete different ones or build on top of others.
+You can define multiple changesets in the same class. You can create completely different ones or build on top of others.
 
 For example, below we'll have a `createChangeset` for creating a user that just builds off our generic `changeset` and
 making some of the fields required.
