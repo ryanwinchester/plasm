@@ -125,3 +125,11 @@ function store($request)
         ->with('success', "User {$user->email} added");
 }
 ```
+
+## License
+
+MIT
+
+## Credits
+
+- [Ecto.Changeset](https://hexdocs.pm/ecto/Ecto.Changeset.html): Most of the ideas come from here.
