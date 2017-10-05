@@ -66,14 +66,18 @@ trait Errors
      *
      * @param string $field
      * @param string $action
+     * @param string $message
+     * @param mixed $constraint
      */
-    protected function addError($field, $action, $message = null)
+    protected function addError($field, $action, $message = null, $constraint = null)
     {
-        $message = $message ?: str_replace(
-            '{field}',
-            $this->humanize($field),
-            $this->messages[$action]
-        );
+        $message = is_null($message)
+            ? str_replace('{field}', $this->humanize($field), $this->messages[$action])
+            : $message;
+
+        $message = !is_null($constraint)
+            ? str_replace(['{count}', '{length}', '{number}'], $constraint, $message)
+            : $message;
 
         $this->errors[$field][] = $message;
     }

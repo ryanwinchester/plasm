@@ -96,30 +96,29 @@ final class ChangesetValidationsTest extends TestCase
         $this->assertFalse($changeset->valid());
     }
 
-    // count TODO
+    // count
 
-    function test_validateCount_valid()
+    /**
+     * @dataProvider validCountProvider
+     */
+    public function test_validateCount_valid($attrs)
     {
-        // $attrs = $this->validAttrs;
-        //
-        // $changeset = new TestChangeset(TestSchema::class, $attrs);
-        // $this->assertTrue($changeset->valid());
+        $attrs = array_merge($this->validAttrs, $attrs);
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $changeset = new TestChangeset(TestSchema::class, $attrs);
+        $this->assertTrue($changeset->valid());
     }
 
-    function test_validateCount_invalid()
+    /**
+     * @dataProvider invalidCountProvider
+     */
+    public function test_validateCount_invalid($attrs, $errors)
     {
-        // $attrs = $this->validAttrs;
-        //
-        // $changeset = new TestChangeset(TestSchema::class, $attrs);
-        // $this->assertFalse($changeset->valid());
+        $attrs = array_merge($this->validAttrs, $attrs);
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $changeset = new TestChangeset(TestSchema::class, $attrs);
+        $this->assertFalse($changeset->valid());
+        $this->assertEquals($errors, $changeset->errors());
     }
 
     // exclusion
@@ -269,5 +268,36 @@ final class ChangesetValidationsTest extends TestCase
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
+    }
+
+    public function validCountProvider()
+    {
+        return [
+            'test valid min rule' => [['skill' => ['php']]],
+            'test valid max rule' => [['skill' => ['php', 'mysql', 'redis']]],
+            'test valid is rule'  => [['topic' => ['oop', 'design patterns']]],
+        ];
+    }
+
+    public function invalidCountProvider()
+    {
+        return [
+            'test invalid min rule' => [
+                ['skill' => []],
+                ['skill' => ['you need at least 1 Skills']],
+            ],
+            'test invalid max rule' => [
+                ['skill' => ['php', 'mysql', 'redis', 'erlang']],
+                ['skill' => ['you can have, at most 3, Skills']],
+            ],
+            'test invalid is and min rules'  => [
+                ['topic' => ['oop']],
+                ['topic' => ['you do not have 2 Topics', 'you need at least 2 Topics']],
+            ],
+            'test invalid is and max rules'  => [
+                ['topic' => ['oop', 'design patterns', 'functional programming']],
+                ['topic' => ['you do not have 2 Topics', 'you can have, at most 2, Topics']],
+            ],
+        ];
     }
 }

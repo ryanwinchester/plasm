@@ -13,15 +13,17 @@ class TestChangeset extends Changeset
      */
     public function change()
     {
-        $this
+        return $this
             ->cast([
                 'name', 'email', 'is_admin', 'age', 'money', 'password',
-                'password_confirmation', 'foo', 'bar', 'accept_tos',
-                'banana_count',
+                'password_confirmation', 'skill', 'topic', 'foo', 'bar',
+                'accept_tos', 'banana_count',
             ])
             ->validateAcceptance('accept_tos')
             ->validateChange('banana_count', $this->validateHasMoreThanTwo())
             ->validateConfirmation('password')
+            ->validateCount('skill', ['min' => 1, 'max' => 3])
+            ->validateCount('topic', ['is' => 2, 'min' => 2, 'max' => 2])
             ->validateExclusion('foo', ['bar', 'baz'])
             ->validateFormat('email', '/^.+@.+\..+$/')
             ->validateInclusion('bar', ['x', 'y'])

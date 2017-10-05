@@ -45,18 +45,32 @@ trait Validations
 
     /**
      * Validates a change is an array of the given count.
+     *
+     * @param string $field Filed name to validate
+     * @param array $opts Validation options
+     *  'is'  - (int) the count must be exactly this value
+     *  'min' - (int) the count must be greater than or equal to this value
+     *  'max' - (int) the count must be less than or equal to this value
+     * @param string $message Error message
+     *
+     * @return $this
      */
     public function validateCount($field, $opts, $message = null)
     {
-        // TODO: Implement validateCount
+        if (isset($this->changes[$field]) && is_array($this->changes[$field])) {
+            $count = count($this->changes[$field]);
 
-        // $opts
-        // 'is' - the count must be exactly this value
-        // 'min' - the count must be greater than or equal to this value
-        // 'max' - the count must be less than or equal to this value
+            if (isset($opts['is']) && $count !== $opts['is']) {
+                $this->addError($field, 'count:is', $message, $opts['is']);
+            }
 
-        if (isset($this->changes[$field])) {
-            $this->addError($field, 'count', $message);
+            if (isset($opts['min']) && $count < $opts['min']) {
+                $this->addError($field, 'count:min', $message, $opts['min']);
+            }
+
+            if (isset($opts['max']) && $count > $opts['max']) {
+                $this->addError($field, 'count:max', $message, $opts['max']);
+            }
         }
 
         return $this;
