@@ -17,7 +17,7 @@ final class ChangesetTest extends TestCase
     {
         $this->assertInstanceOf(
             Changeset::class,
-            new EmptyChangeset(new EmptySchema(), [])
+            new EmptyChangeset(new EmptySchema())
         );
     }
 
@@ -26,7 +26,16 @@ final class ChangesetTest extends TestCase
     {
         $this->assertInstanceOf(
             Changeset::class,
-            new EmptyChangeset(EmptySchema::class, [])
+            new EmptyChangeset(EmptySchema::class)
+        );
+    }
+
+    /** @test */
+    public function can_be_created_with_static_constructor()
+    {
+        $this->assertInstanceOf(
+            Changeset::class,
+            EmptyChangeset::using(EmptySchema::class)
         );
     }
 
@@ -35,6 +44,14 @@ final class ChangesetTest extends TestCase
     {
         $this->expectException(\TypeError::class);
 
-        new EmptyChangeset([], []);
+        new EmptyChangeset([]);
+    }
+
+    /** @test */
+    public function can_not_be_statically_created_with_invalid_schema()
+    {
+        $this->expectException(\TypeError::class);
+
+        EmptyChangeset::using([]);
     }
 }

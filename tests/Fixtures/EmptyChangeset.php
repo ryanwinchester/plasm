@@ -6,7 +6,7 @@ use Plasm\Changeset;
 
 class EmptyChangeset extends Changeset
 {
-    function change() {
-        //
+    function change($attrs) {
+        return $this->cast($attrs, []);
     }
 }
