@@ -12,10 +12,10 @@ engines:
       CleanCode/ElseExpression:
         enabled: false
 
+ratings:
+  paths:
+    - "src/**/*.php"
+
 exclude_paths:
   - "tests/"
   - "vendor/"
-
-ratings:
-  paths:
-  - "src/**/*
