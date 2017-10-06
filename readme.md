@@ -81,7 +81,7 @@ class UserChangeset extends Changeset
             ->validateFormat('email', '/.+@.+\..+/')
             ->validateLength('password', ['min' => 8])
             ->validateConfirmation('password')
-            ->validateNumber('age', ['greater_than' => 13]);
+            ->validateNumber('age', ['greater_than' => 12], 'You need to be at least 13');
     }
 
     /**
@@ -91,7 +91,22 @@ class UserChangeset extends Changeset
     {
         return $this
             ->changeset($attrs)
-            ->validateRequired(['name', 'email', 'age', 'password']);
+            ->validateRequired(['name', 'email', 'age', 'password'])
+            ->validateChange(
+                'password',
+                $this->validatePassStrength(),
+                'Your password is too weak'
+            );
+    }
+
+    private function validatePassStrength()
+    {
+        return function($password) {
+            $zxcvbn = new \ZxcvbnPhp\Zxcvbn();
+            $strength = $zxcvbn->passwordStrength($password);
+
+            return $strength['score'] >= 3;
+        };
     }
 }
 ```
@@ -119,7 +134,7 @@ function store($request)
         return back()->with('changeset', $changeset);
     }
 
-    $user = $changeset->save();
+    $user = $changeset->createModel();
 
     return redirect()->route('users/index')
         ->with('success', "User {$user->email} added");

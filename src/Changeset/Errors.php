@@ -4,7 +4,7 @@ namespace Plasm\Changeset;
 
 trait Errors
 {
-    private $errors = [];
+    protected $errors = [];
 
     protected $messages = [];
 

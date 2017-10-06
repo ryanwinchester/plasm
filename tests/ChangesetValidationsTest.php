@@ -22,13 +22,15 @@ final class ChangesetValidationsTest extends TestCase
         'money' => '18.75',
     ];
 
-    function test_changeset_empty_attrs()
+    /** @test */
+    function changeset_empty_attrs()
     {
         $changeset = EmptyChangeset::using(EmptySchema::class)->change([]);
         $this->assertTrue($changeset->valid());
     }
 
-    function test_changeset_valid_attrs()
+    /** @test */
+    function changeset_valid_attrs()
     {
         $changeset = TestChangeset::using(TestSchema::class)->change($this->validAttrs);
         $this->assertTrue($changeset->valid());
@@ -36,7 +38,8 @@ final class ChangesetValidationsTest extends TestCase
 
     // accepted
 
-    function test_validateAccepted_valid()
+    /** @test */
+    function validateAccepted_valid()
     {
         $attrs = $this->validAttrs;
         $attrs['accept_tos'] = '1';
@@ -45,7 +48,8 @@ final class ChangesetValidationsTest extends TestCase
         $this->assertTrue($changeset->valid());
     }
 
-    function test_validateAccepted_invalid()
+    /** @test */
+    function validateAccepted_invalid()
     {
         $attrs = $this->validAttrs;
         $attrs['accept_tos'] = '0';
@@ -56,7 +60,8 @@ final class ChangesetValidationsTest extends TestCase
 
     // change
 
-    function test_validateChange_valid()
+    /** @test */
+    function validateChange_valid()
     {
         $attrs = $this->validAttrs;
         $attrs['banana_count'] = '3';
@@ -65,7 +70,8 @@ final class ChangesetValidationsTest extends TestCase
         $this->assertTrue($changeset->valid());
     }
 
-    function test_validateChange_invalid()
+    /** @test */
+    function validateChange_invalid()
     {
         $attrs = $this->validAttrs;
         $attrs['banana_count'] = '0';
@@ -76,7 +82,8 @@ final class ChangesetValidationsTest extends TestCase
 
     // confirmation
 
-    function test_validateConfirmation_valid()
+    /** @test */
+    function validateConfirmation_valid()
     {
         $attrs = $this->validAttrs;
         $attrs['password'] = 'password123';
@@ -86,7 +93,8 @@ final class ChangesetValidationsTest extends TestCase
         $this->assertTrue($changeset->valid());
     }
 
-    function test_validateConfirmation_invalid()
+    /** @test */
+    function validateConfirmation_invalid()
     {
         $attrs = $this->validAttrs;
         $attrs['password'] = 'password123';
@@ -99,9 +107,10 @@ final class ChangesetValidationsTest extends TestCase
     // count
 
     /**
+     * @test
      * @dataProvider validCountProvider
      */
-    public function test_validateCount_valid($attrs)
+    function validateCount_valid($attrs)
     {
         $attrs = array_merge($this->validAttrs, $attrs);
 
@@ -110,9 +119,10 @@ final class ChangesetValidationsTest extends TestCase
     }
 
     /**
+     * @test
      * @dataProvider invalidCountProvider
      */
-    public function test_validateCount_invalid($attrs, $errors)
+    function validateCount_invalid($attrs, $errors)
     {
         $attrs = array_merge($this->validAttrs, $attrs);
 
@@ -123,7 +133,8 @@ final class ChangesetValidationsTest extends TestCase
 
     // exclusion
 
-    function test_validateExclusion_valid()
+    /** @test */
+    function validateExclusion_valid()
     {
         $attrs = $this->validAttrs;
         $attrs['foo'] = 'zing';
@@ -132,7 +143,8 @@ final class ChangesetValidationsTest extends TestCase
         $this->assertTrue($changeset->valid());
     }
 
-    function test_validateExclusion_invalid()
+    /** @test */
+    function validateExclusion_invalid()
     {
         $attrs = $this->validAttrs;
         $attrs['foo'] = 'bar';
@@ -143,7 +155,8 @@ final class ChangesetValidationsTest extends TestCase
 
     // format
 
-    function test_validateFormat_valid()
+    /** @test */
+    function validateFormat_valid()
     {
         $attrs = $this->validAttrs;
         $attrs['email'] = 'joe@joe.joe';
@@ -152,7 +165,8 @@ final class ChangesetValidationsTest extends TestCase
         $this->assertTrue($changeset->valid());
     }
 
-    function test_validateFormat_invalid()
+    /** @test */
+    function validateFormat_invalid()
     {
         $attrs = $this->validAttrs;
         $attrs['email'] = 'joe joe';
@@ -163,7 +177,8 @@ final class ChangesetValidationsTest extends TestCase
 
     // inclusion
 
-    function test_validateInclusion_valid()
+    /** @test */
+    function validateInclusion_valid()
     {
         $attrs = $this->validAttrs;
         $attrs['bar'] = 'x';
@@ -172,7 +187,8 @@ final class ChangesetValidationsTest extends TestCase
         $this->assertTrue($changeset->valid());
     }
 
-    function test_validateInclusion_invalid()
+    /** @test */
+    function validateInclusion_invalid()
     {
         $attrs = $this->validAttrs;
         $attrs['bar'] = 'z';
@@ -184,9 +200,10 @@ final class ChangesetValidationsTest extends TestCase
     // length
 
     /**
+     * @test
      * @dataProvider validLengthProvider
      */
-    function test_validateLength_valid($attrs)
+    function validateLength_valid($attrs)
     {
         $attrs = array_merge($this->validAttrs, $attrs);
 
@@ -195,9 +212,10 @@ final class ChangesetValidationsTest extends TestCase
     }
 
     /**
+     * @test
      * @dataProvider invalidLengthProvider
      */
-    function test_validateLength_invalid($attrs, $errors)
+    function validateLength_invalid($attrs, $errors)
     {
         $attrs = array_merge($this->validAttrs, $attrs);
 
@@ -208,7 +226,8 @@ final class ChangesetValidationsTest extends TestCase
 
     // number TODO
 
-    function test_validateNumber_valid()
+    /** @test */
+    function validateNumber_valid()
     {
         // $attrs = $this->validAttrs;
         //
@@ -220,7 +239,8 @@ final class ChangesetValidationsTest extends TestCase
         );
     }
 
-    function test_validateNumber_invalid()
+    /** @test */
+    function validateNumber_invalid()
     {
         // $attrs = $this->validAttrs;
         //
@@ -234,7 +254,8 @@ final class ChangesetValidationsTest extends TestCase
 
     // required
 
-    function test_validateRequired_invalid()
+    /** @test */
+    function validateRequired_invalid()
     {
         $attrs = $this->validAttrs;
         unset($attrs['name']);
@@ -245,7 +266,8 @@ final class ChangesetValidationsTest extends TestCase
 
     // subset TODO
 
-    function test_validateSubset_valid()
+    /** @test */
+    function validateSubset_valid()
     {
         // $attrs = $this->validAttrs;
         //
@@ -257,7 +279,8 @@ final class ChangesetValidationsTest extends TestCase
         );
     }
 
-    function test_validateSubset_invalid()
+    /** @test */
+    function validateSubset_invalid()
     {
         // $attrs = $this->validAttrs;
         //
@@ -269,7 +292,7 @@ final class ChangesetValidationsTest extends TestCase
         );
     }
 
-    public function validCountProvider()
+    function validCountProvider()
     {
         return [
             'test valid count:min rule' => [['skill' => ['php']]],
@@ -278,7 +301,7 @@ final class ChangesetValidationsTest extends TestCase
         ];
     }
 
-    public function invalidCountProvider()
+    function invalidCountProvider()
     {
         return [
             'test invalid count:min rule' => [
@@ -300,7 +323,7 @@ final class ChangesetValidationsTest extends TestCase
         ];
     }
 
-    public function validLengthProvider()
+    function validLengthProvider()
     {
         return [
             'test valid length:min rule' => [['name' => 'Ed']],
@@ -309,7 +332,7 @@ final class ChangesetValidationsTest extends TestCase
         ];
     }
 
-    public function invalidLengthProvider()
+    function invalidLengthProvider()
     {
         return [
             'test invalid length:min rule' => [

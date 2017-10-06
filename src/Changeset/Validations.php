@@ -20,12 +20,17 @@ trait Validations
     /**
      * Validates the given field change. It invokes the validator function to
      * perform the validation only if a change for the given field exists.
-     * The validator should return a boolean.
+     * The validator should return an error message or a boolean.
      */
     public function validateChange($field, $validator, $message = null)
     {
-        if (isset($this->changes[$field]) && !$validator($this->changes[$field])) {
-            $this->addError($field, 'change', $message);
+        if (isset($this->changes[$field])) {
+            $result = $validator($this->changes[$field]);
+            if (is_string($result)) {
+                $this->addError($field, 'change', $result);
+            } elseif (!$result) {
+                $this->addError($field, 'change', $message);
+            }
         }
 
         return $this;
