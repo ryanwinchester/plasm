@@ -181,30 +181,29 @@ final class ChangesetValidationsTest extends TestCase
         $this->assertFalse($changeset->valid());
     }
 
-    // length TODO
+    // length
 
-    function test_validateLength_valid()
+    /**
+     * @dataProvider validLengthProvider
+     */
+    function test_validateLength_valid($attrs)
     {
-        // $attrs = $this->validAttrs;
-        //
-        // $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
-        // $this->assertTrue($changeset->valid());
+        $attrs = array_merge($this->validAttrs, $attrs);
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+        $this->assertTrue($changeset->valid());
     }
 
-    function test_validateLength_invalid()
+    /**
+     * @dataProvider invalidLengthProvider
+     */
+    function test_validateLength_invalid($attrs, $errors)
     {
-        // $attrs = $this->validAttrs;
-        //
-        // $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
-        // $this->assertFalse($changeset->valid());
+        $attrs = array_merge($this->validAttrs, $attrs);
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+        $this->assertFalse($changeset->valid());
+        $this->assertEquals($errors, $changeset->errors());
     }
 
     // number TODO
@@ -273,30 +272,57 @@ final class ChangesetValidationsTest extends TestCase
     public function validCountProvider()
     {
         return [
-            'test valid min rule' => [['skill' => ['php']]],
-            'test valid max rule' => [['skill' => ['php', 'mysql', 'redis']]],
-            'test valid is rule'  => [['topic' => ['oop', 'design patterns']]],
+            'test valid count:min rule' => [['skill' => ['php']]],
+            'test valid count:max rule' => [['skill' => ['php', 'mysql', 'redis']]],
+            'test valid count:is rule'  => [['topic' => ['oop', 'design patterns']]],
         ];
     }
 
     public function invalidCountProvider()
     {
         return [
-            'test invalid min rule' => [
+            'test invalid count:min rule' => [
                 ['skill' => []],
                 ['skill' => ['you need at least 1 Skills']],
             ],
-            'test invalid max rule' => [
+            'test invalid count:max rule' => [
                 ['skill' => ['php', 'mysql', 'redis', 'erlang']],
                 ['skill' => ['you can have, at most 3, Skills']],
             ],
-            'test invalid is and min rules'  => [
+            'test invalid count:is and count:min rules'  => [
                 ['topic' => ['oop']],
                 ['topic' => ['you do not have 2 Topics', 'you need at least 2 Topics']],
             ],
-            'test invalid is and max rules'  => [
+            'test invalid count:is and count:max rules'  => [
                 ['topic' => ['oop', 'design patterns', 'functional programming']],
                 ['topic' => ['you do not have 2 Topics', 'you can have, at most 2, Topics']],
+            ],
+        ];
+    }
+
+    public function validLengthProvider()
+    {
+        return [
+            'test valid length:min rule' => [['name' => 'Ed']],
+            'test valid length:max rule' => [['name' => 'Pablo Diego José']],
+            'test valid length:is rule'  => [['password_hash' => md5('password')]],
+        ];
+    }
+
+    public function invalidLengthProvider()
+    {
+        return [
+            'test invalid length:min rule' => [
+                ['name' => 'Y'],
+                ['name' => ['you need at least 2 Names']],
+            ],
+            'test invalid length:max rule' => [
+                ['name' => 'Wolfeschlegelsteinhausenbergerdorff'],
+                ['name' => ['you can have, at most 16, Names']],
+            ],
+            'test invalid length:is rule'  => [
+                ['password_hash' => sha1('password')],
+                ['password_hash' => ['you do not have 32 Password hashs']],
             ],
         ];
     }
