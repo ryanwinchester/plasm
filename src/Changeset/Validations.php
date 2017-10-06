@@ -59,18 +59,7 @@ trait Validations
     {
         if (isset($this->changes[$field]) && is_array($this->changes[$field])) {
             $count = count($this->changes[$field]);
-
-            if (isset($opts['is']) && $count !== $opts['is']) {
-                $this->addError($field, 'count:is', $message, $opts['is']);
-            }
-
-            if (isset($opts['min']) && $count < $opts['min']) {
-                $this->addError($field, 'count:min', $message, $opts['min']);
-            }
-
-            if (isset($opts['max']) && $count > $opts['max']) {
-                $this->addError($field, 'count:max', $message, $opts['max']);
-            }
+            $this->validateCountable($field, $count, 'count', $opts, $message);
         }
 
         return $this;
@@ -118,18 +107,21 @@ trait Validations
 
     /**
      * Validates a change is a string of the given length.
+     *
+     * @param string $field Filed name to validate
+     * @param array $opts Validation options
+     *  'is'  - (int) the length must be exactly this value
+     *  'min' - (int) the length must be greater than or equal to this value
+     *  'max' - (int) the length must be less than or equal to this value
+     * @param string $message Error message
+     *
+     * @return $this
      */
     public function validateLength($field, $opts, $message = null)
     {
-        // TODO: Implement validateLength
-
-        // $opts
-        // 'is' - the length must be exactly this value
-        // 'min' - the length must be greater than or equal to this value
-        // 'max' - the length must be less than or equal to this value
-
         if (isset($this->changes[$field]) && is_string($this->changes[$field])) {
-            $this->addError($field, 'length', $message);
+            $length = mb_strlen($this->changes[$field]);
+            $this->validateCountable($field, $length, 'length', $opts, $message);
         }
 
         return $this;
@@ -180,5 +172,36 @@ trait Validations
         // TODO: Implement validateSubset
 
         return $this;
+    }
+
+    /**
+     * Validates countable $field against $rules
+     *
+     * @param string $field Name of the field to validate
+     * @param int $count Value of the countable field
+     * @param string $action Action title
+     *  'count'  - validating count of an array
+     *  'length' - validating length of a string
+     * @param array $rules List of validation rules
+     *  'is'  - (int) the $count must be exactly this value
+     *  'min' - (int) the $count must be greater than or equal to this value
+     *  'max' - (int) the $count must be less than or equal to this value
+     * @param string $message Error message
+     *
+     * @return void
+     */
+    private function validateCountable($field, $count, $action, $rules, $message)
+    {
+        if (isset($rules['is']) && $count !== $rules['is']) {
+            $this->addError($field, $action . ':is', $message, $rules['is']);
+        }
+
+        if (isset($rules['min']) && $count < $rules['min']) {
+            $this->addError($field, $action . ':min', $message, $rules['min']);
+        }
+
+        if (isset($rules['max']) && $count > $rules['max']) {
+            $this->addError($field, $action . ':max', $message, $rules['max']);
+        }
     }
 }
