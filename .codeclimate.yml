@@ -15,3 +15,7 @@ engines:
 exclude_paths:
   - "tests/"
   - "vendor/"
+
+ratings:
+  paths:
+  - "src/**/*

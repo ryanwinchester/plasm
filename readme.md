@@ -1,7 +1,9 @@
 # Plasm
 
-[![Build Status](https://travis-ci.org/ryanwinchester/plasm.svg?branch=master)](https://travis-ci.org/ryanwinchester/plasm)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ryanwinchester/plasm/master/LICENSE)
+ [![Build Status](https://travis-ci.org/ryanwinchester/plasm.svg?branch=master)](https://travis-ci.org/ryanwinchester/plasm)
  [![codecov](https://codecov.io/gh/ryanwinchester/plasm/branch/master/graph/badge.svg)](https://codecov.io/gh/ryanwinchester/plasm)
+ [![Code Climate](https://img.shields.io/codeclimate/coverage/github/ryanwinchester/plasm.svg)](https://codeclimate.com/github/ryanwinchester/plasm/coverage)
 
 Filter, cast, and validate incoming data from **forms**, **API**s, **CLI**, etc.
 
