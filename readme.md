@@ -1,6 +1,7 @@
 # Plasm
 
 [![Build Status](https://travis-ci.org/ryanwinchester/plasm.svg?branch=master)](https://travis-ci.org/ryanwinchester/plasm)
+ [![codecov](https://codecov.io/gh/ryanwinchester/plasm/branch/master/graph/badge.svg)](https://codecov.io/gh/ryanwinchester/plasm)
 
 Filter, cast, and validate incoming data from **forms**, **API**s, **CLI**, etc.
 

@@ -22,10 +22,11 @@ install:
   - travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest
 
 script:
-  - vendor/bin/phpunit --verbose --coverage-clover build/logs/clover.xml
+  - vendor/bin/phpunit
 
-after_script:
-  - vendor/bin/test-reporter
+after_success:
+  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+  - vendor/bin/test-reporter --coverage-report=clover.xml
 
 addons:
   code_climate:

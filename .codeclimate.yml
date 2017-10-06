@@ -1,0 +1,17 @@
+engines:
+  phpmd:
+    enabled: true
+    checks:
+      # turn off because i think $id is a valid name
+      Naming/ShortVariable:
+        enabled: false
+      # it's fine, bug off
+      CleanCode/StaticAccess:
+        enabled: false
+      # turn off because they have uses sometimes
+      CleanCode/ElseExpression:
+        enabled: false
+
+exclude_paths:
+  - "**"
+  - "!src"
