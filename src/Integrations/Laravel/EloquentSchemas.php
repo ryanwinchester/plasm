@@ -1,6 +1,6 @@
 <?php
 
-namespace Plasm\Integrations;
+namespace Plasm\Integrations\Laravel;
 
 trait EloquentSchemas
 {
