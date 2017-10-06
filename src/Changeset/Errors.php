@@ -4,10 +4,6 @@ namespace Plasm\Changeset;
 
 trait Errors
 {
-    protected $errors = [];
-
-    protected $messages = [];
-
     protected $defaultMessages = [
         'acceptance' => 'You must accept {field}',
         'cast' => 'Unable to cast {field}',

@@ -32,13 +32,19 @@ abstract class Changeset
      * The errors produced when $attrs fails validation.
      * @var array
      */
-    protected $errors;
+    private $errors = [];
 
     /**
-     * The name of the schema class to use (optional).
+     * The name of the schema class to use (optional override).
      * @var string
      */
     protected $schemaClass;
+
+    /**
+     * Override or add to the default messages (optional override).
+     * @var array
+     */
+    protected $messages = [];
 
     /**
      * @param Schema|string $schema Schema instance or class name
@@ -60,7 +66,7 @@ abstract class Changeset
 
         $this->messages = array_merge(
             $this->defaultMessages,
-            $this->messages()
+            $this->messages
         );
 
         if (!is_null($changeset)) {
