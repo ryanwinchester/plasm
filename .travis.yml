@@ -21,7 +21,7 @@ install:
   - travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest
 
 script:
-  - vendor/bin/phpunit
+  - vendor/bin/phpunit --coverage-clover clover.xml
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
