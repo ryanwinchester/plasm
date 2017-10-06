@@ -13,5 +13,5 @@ engines:
         enabled: false
 
 exclude_paths:
-  - "**"
-  - "!src"
+  - "tests/"
+  - "vendor/"
