@@ -24,9 +24,9 @@ install:
 script:
   - vendor/bin/phpunit --verbose --coverage-clover build/logs/clover.xml
 
-#after_script:
-#  - vendor/bin/test-reporter
+after_script:
+  - vendor/bin/test-reporter
 
-#addons:
-#  code_climate:
-#    repo_token: $CODE_CLIMATE_TOKEN
+addons:
+  code_climate:
+    repo_token: $CODE_CLIMATE_TOKEN
