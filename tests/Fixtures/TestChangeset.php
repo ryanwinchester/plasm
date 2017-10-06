@@ -6,6 +6,8 @@ use Plasm\Changeset;
 
 class TestChangeset extends Changeset
 {
+    protected $schemaClass = TestSchema::class;
+
     /**
      * Do the things.
      *

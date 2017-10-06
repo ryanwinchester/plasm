@@ -10,37 +10,93 @@ abstract class Changeset
     use Validations;
     use Errors;
 
+    /**
+     * The Schema used for filtering, casting and default values.
+     * @var null|Schema|string
+     */
     private $schema;
+
+    /**
+     * The attributes to cast and validate.
+     * @var array|\ArrayAccess
+     */
     private $attrs;
+
+    /**
+     * The changes.
+     * @var array
+     */
     private $changes;
 
     /**
-     * @param Schema|string $schema
+     * The errors produced when $attrs fails validation.
+     * @var array
+     */
+    protected $errors;
+
+    /**
+     * The name of the schema class to use (optional).
+     * @var string
+     */
+    protected $schemaClass;
+
+    /**
+     * @param Schema|string $schema Schema instance or class name
+     * @param string $changeset The name of the changeset to call immediately
+     * @param array|\ArrayAccess $attrs The attributes to use in the changeset
      * @throws \TypeError
      */
-    public function __construct($schema)
+    public function __construct($schema = null, $changeset = null, $attrs = [])
     {
-        $this->schema = is_string($schema) ? new $schema() : $schema;
+        $this->schema = $this->instantiateSchema($schema);
 
         if (! $this->schema instanceof Schema) {
             throw new \TypeError("Invalid Schema type");
+        }
+
+        if (method_exists($this, 'initIntegration')) {
+            $this->initIntegration();
         }
 
         $this->messages = array_merge(
             $this->defaultMessages,
             $this->messages()
         );
+
+        if (!is_null($changeset)) {
+            $this->{$changeset}($attrs);
+        }
+    }
+
+    /**
+     * @param Schema|string|null $schema
+     * @return Schema
+     * @throws \Exception
+     */
+    private function instantiateSchema($schema = null)
+    {
+        if (!is_null($schema)) {
+            return is_string($schema) ? new $schema() : $schema;
+        }
+
+        if (is_null($this->schemaClass)) {
+            throw new \InvalidArgumentException('Provide a schema in the constructor or set $schemaClass in your changeset');
+        }
+
+        return new $this->schemaClass();
     }
 
     /**
      * Create a new Changeset using given Schema.
      *
-     * @param Schema|string $schema
+     * @param Schema|string $schema Schema instance or class name
+     * @param string $changeset The name of the changeset to call immediately
+     * @param array|\ArrayAccess $attrs The attributes to use in the changeset
      * @return static
      */
-    public static function using($schema)
+    public static function using($schema, $changeset = null, $attrs = [])
     {
-        return new static($schema);
+        return new static($schema, $changeset, $attrs);
     }
 
     /**

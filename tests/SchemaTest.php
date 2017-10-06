@@ -13,7 +13,7 @@ use Plasm\Tests\Fixtures\TestSchema;
 final class SchemaTest extends TestCase
 {
     /** @test */
-    public function can_be_created_empty()
+    function can_be_created_empty()
     {
         $this->assertInstanceOf(
             Schema::class,
@@ -22,7 +22,7 @@ final class SchemaTest extends TestCase
     }
 
     /** @test */
-    public function can_be_created()
+    function can_be_created()
     {
         $this->assertInstanceOf(
             Schema::class,
