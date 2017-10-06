@@ -10,7 +10,7 @@ use Plasm\Tests\Fixtures\TestChangeset;
 use Plasm\Tests\Fixtures\TestSchema;
 
 /**
- * @covers \Plasm\ChangesetValidations
+ * @covers \Plasm\Changeset\Validations
  */
 final class ChangesetValidationsTest extends TestCase
 {
