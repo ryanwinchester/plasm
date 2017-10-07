@@ -57,7 +57,8 @@ abstract class Schema implements ArrayAccess
      */
     public function offsetSet($offset, $value)
     {
-        throw new \Exception("Schema is read-only");
+        $value = json_encode($value);
+        throw new \Exception("Schema {$offset} is read-only. Can't set {$value}");
     }
 
     /**
@@ -65,7 +66,7 @@ abstract class Schema implements ArrayAccess
      */
     public function offsetUnset($offset)
     {
-        throw new \Exception("Schema is read-only");
+        throw new \Exception("Schema {$offset} is read-only");
     }
 
 }

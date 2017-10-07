@@ -135,19 +135,19 @@ trait Validations
     /**
      * Validates the properties of a number.
      */
-    public function validateNumber($field, $opts, $message = null)
-    {
-        // TODO: Implement validateNumber
-
-        // $opts
-        // :less_than
-        // :greater_than
-        // :less_than_or_equal_to
-        // :greater_than_or_equal_to
-        // :equal_to
-
-        return $this;
-    }
+    // public function validateNumber($field, $opts, $message = null)
+    // {
+    //     // TODO: Implement validateNumber
+    //
+    //     // $opts
+    //     // :less_than
+    //     // :greater_than
+    //     // :less_than_or_equal_to
+    //     // :greater_than_or_equal_to
+    //     // :equal_to
+    //
+    //     return $this;
+    // }
 
     /**
      * Validate that one or more fields are present in the changeset.
@@ -172,12 +172,12 @@ trait Validations
      * Validates a change, in an array, is a subset of the given array.
      * Like validateInclusion() for arrays.
      */
-    public function validateSubset($field, $set, $message = null)
-    {
-        // TODO: Implement validateSubset
-
-        return $this;
-    }
+    // public function validateSubset($field, $set, $message = null)
+    // {
+    //     // TODO: Implement validateSubset
+    //
+    //     return $this;
+    // }
 
     /**
      * Validates countable $field against $rules
