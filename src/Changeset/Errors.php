@@ -78,7 +78,7 @@ trait Errors
     }
 
     /**
-     * Turn a field name like 'first_name' into 'First name'
+     * Turn a field name like 'first_name' into 'First name'.
      *
      * @param string $field
      * @return string
