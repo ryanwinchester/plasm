@@ -56,8 +56,8 @@ abstract class Changeset
     {
         $this->schema = $this->instantiateSchema($schema);
 
-        if (! $this->schema instanceof Schema) {
-            throw new \TypeError("Invalid Schema type");
+        if (!$this->schema instanceof Schema) {
+            throw new \TypeError('Invalid Schema type');
         }
 
         if (method_exists(static::class, 'initIntegration')) {

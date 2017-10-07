@@ -160,7 +160,7 @@ trait Validations
         $fields = is_string($fields) ? func_get_args() : $fields;
 
         foreach ($fields as $field) {
-            if (! isset($this->changes[$field])) {
+            if (!isset($this->changes[$field])) {
                 $this->addError($field, 'required', $message);
             }
         }
@@ -180,7 +180,7 @@ trait Validations
     // }
 
     /**
-     * Validates countable $field against $rules
+     * Validates countable $field against $rules.
      *
      * @param string $field Name of the field to validate
      * @param int $count Value of the countable field
@@ -198,15 +198,15 @@ trait Validations
     private function validateCountable($field, $count, $action, $rules, $message)
     {
         if (isset($rules['is']) && $count !== $rules['is']) {
-            $this->addError($field, $action . ':is', $message, $rules['is']);
+            $this->addError($field, $action.':is', $message, $rules['is']);
         }
 
         if (isset($rules['min']) && $count < $rules['min']) {
-            $this->addError($field, $action . ':min', $message, $rules['min']);
+            $this->addError($field, $action.':min', $message, $rules['min']);
         }
 
         if (isset($rules['max']) && $count > $rules['max']) {
-            $this->addError($field, $action . ':max', $message, $rules['max']);
+            $this->addError($field, $action.':max', $message, $rules['max']);
         }
     }
 }
