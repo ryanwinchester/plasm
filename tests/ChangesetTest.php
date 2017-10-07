@@ -9,9 +9,6 @@ use Plasm\Tests\Fixtures\EmptySchema;
 use Plasm\Tests\Fixtures\TestChangeset;
 use Plasm\Tests\Fixtures\TestSchema;
 
-/**
- * @covers \Plasm\Changeset
- */
 final class ChangesetTest extends TestCase
 {
     private $validAttrs = [

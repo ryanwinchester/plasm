@@ -7,9 +7,6 @@ use Plasm\Schema;
 use Plasm\Tests\Fixtures\EmptySchema;
 use Plasm\Tests\Fixtures\TestSchema;
 
-/**
- * @covers \Plasm\Schema
- */
 final class SchemaTest extends TestCase
 {
     /** @test */
