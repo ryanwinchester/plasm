@@ -60,7 +60,7 @@ abstract class Changeset
             throw new \TypeError("Invalid Schema type");
         }
 
-        if (method_exists($this, 'initIntegration')) {
+        if (method_exists(static::class, 'initIntegration')) {
             $this->initIntegration();
         }
 
