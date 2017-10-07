@@ -26,6 +26,71 @@ final class SchemaTest extends TestCase
             new TestSchema()
         );
     }
+
+    /** @test */
+    function gets_fields()
+    {
+        $schema = new MySchema();
+
+        $this->assertArrayHasKey('name', $schema->fields());
+        $this->assertTrue(count($schema->fields()) == 1);
+    }
+
+    /** @test */
+    function array_accessor()
+    {
+        $schema = new MySchema();
+
+        $this->assertArrayHasKey('name', $schema);
+        $this->assertTrue($schema['name'] === ['type' => 'string']);
+        // bla
+        $this->assertTrue($schema->offsetExists('name'));
+        $this->assertTrue($schema->offsetGet('name') === ['type' => 'string']);
+        $this->assertTrue($schema->offsetExists('name'));
+        $this->assertTrue($schema->offsetExists('name'));
+    }
+
+    /** @test */
+    function array_accessor_blocks_array_set()
+    {
+        $this->expectException(\Exception::class);
+
+        $schema = new MySchema();
+        $schema['name'] = 'foo';
+    }
+
+    /** @test */
+    function array_accessor_blocks_set()
+    {
+        $this->expectException(\Exception::class);
+
+        $schema = new MySchema();
+        $schema->offsetSet('name', 'foo');
+    }
+
+    /** @test */
+    function array_accessor_blocks_array_unset()
+    {
+        $this->expectException(\Exception::class);
+
+        $schema = new MySchema();
+        unset($schema['name']);
+    }
+
+    /** @test */
+    function array_accessor_blocks_unset()
+    {
+        $this->expectException(\Exception::class);
+
+        $schema = new MySchema();
+        $schema->offsetUnset('name');
+    }
 }
 
-
+class MySchema extends Schema
+{
+    protected function definition()
+    {
+        return ['name' => ['type' => 'string']];
+    }
+}
