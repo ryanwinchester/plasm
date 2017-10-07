@@ -134,20 +134,51 @@ trait Validations
 
     /**
      * Validates the properties of a number.
+     *
+     * @param string $field Name of the field to validate
+     * @param array $opts Validation options
+     *  'less_than'
+     *  'greater_than'
+     *  'less_than_or_equal_to'
+     *  'greater_than_or_equal_to'
+     *  'equal_to'
+     * @param string $message Error message
+     *
+     * @return $this
      */
-    // public function validateNumber($field, $opts, $message = null)
-    // {
-    //     // TODO: Implement validateNumber
-    //
-    //     // $opts
-    //     // :less_than
-    //     // :greater_than
-    //     // :less_than_or_equal_to
-    //     // :greater_than_or_equal_to
-    //     // :equal_to
-    //
-    //     return $this;
-    // }
+    public function validateNumber($field, $opts, $message = null)
+    {
+        if (isset($this->changes[$field]) && is_numeric($this->changes[$field])) {
+            $number = $this->changes[$field];
+
+            $action = 'less_than';
+            if (isset($opts[$action]) && !($number < $opts[$action])) {
+                $this->addError($field, 'number:'.$action, $message, $opts[$action]);
+            }
+
+            $action = 'greater_than';
+            if (isset($opts[$action]) && !($number > $opts[$action])) {
+                $this->addError($field, 'number:'.$action, $message, $opts[$action]);
+            }
+
+            $action = 'less_than_or_equal_to';
+            if (isset($opts[$action]) && !($number <= $opts[$action])) {
+                $this->addError($field, 'number:'.$action, $message, $opts[$action]);
+            }
+
+            $action = 'greater_than_or_equal_to';
+            if (isset($opts[$action]) && !($number >= $opts[$action])) {
+                $this->addError($field, 'number:'.$action, $message, $opts[$action]);
+            }
+
+            $action = 'equal_to';
+            if (isset($opts[$action]) && ($number !== $opts[$action])) {
+                $this->addError($field, 'number:'.$action, $message, $opts[$action]);
+            }
+        }
+
+        return $this;
+    }
 
     /**
      * Validate that one or more fields are present in the changeset.

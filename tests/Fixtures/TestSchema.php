@@ -29,6 +29,7 @@ class TestSchema extends Schema
             'bar' => ['type' => 'string'],
             'banana_count' => ['type' => 'integer'],
             'things' => ['type' => 'array'],
+            'lucky' => ['type' => 'integer'],
         ];
     }
 }

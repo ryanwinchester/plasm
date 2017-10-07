@@ -19,7 +19,7 @@ class TestChangeset extends Changeset
             ->cast($attrs, [
                 'name', 'email', 'is_admin', 'age', 'money', 'password',
                 'password_confirmation', 'password_hash', 'skill', 'topic',
-                'foo', 'bar', 'accept_tos', 'banana_count', 'things',
+                'foo', 'bar', 'accept_tos', 'banana_count', 'things', 'lucky',
             ])
             ->validateAcceptance('accept_tos')
             ->validateChange('banana_count', $this->validateHasMoreThanTwo())
@@ -27,6 +27,9 @@ class TestChangeset extends Changeset
             ->validateConfirmation('password')
             ->validateLength('name', ['min' => 2, 'max' => 16])
             ->validateLength('password_hash', ['is' => 32])
+            ->validateNumber('age', ['greater_than_or_equal_to' => 18, 'less_than_or_equal_to' => 60])
+            ->validateNumber('money', ['greater_than' => 1, 'less_than' => 1000])
+            ->validateNumber('lucky', ['equal_to' => 7])
             ->validateCount('skill', ['min' => 1, 'max' => 3])
             ->validateCount('topic', ['is' => 2, 'min' => 2, 'max' => 2])
             ->validateExclusion('foo', ['bar', 'baz'])
