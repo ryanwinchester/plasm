@@ -1,5 +1,5 @@
 {
-  "name": "ryanwinchester/plasm",
+  "name": "plasm/plasm",
   "description": "Schemas and Changesets for PHP",
   "type": "library",
   "license": "MIT",
