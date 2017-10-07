@@ -68,5 +68,4 @@ abstract class Schema implements ArrayAccess
     {
         throw new \Exception("Schema {$offset} is read-only");
     }
-
 }

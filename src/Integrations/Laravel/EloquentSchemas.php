@@ -1,5 +1,5 @@
 <?php
-//
+
 // namespace Plasm\Integrations\Laravel;
 //
 // trait EloquentSchemas
