@@ -11,6 +11,9 @@ engines:
       # turn off because they have uses sometimes
       CleanCode/ElseExpression:
         enabled: false
+      # I have fields used by traits
+      UnusedPrivateField:
+        enabled: false
 
 ratings:
   paths:

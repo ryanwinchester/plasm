@@ -138,9 +138,7 @@ abstract class Changeset
     private function castField($field)
     {
         if (isset($this->changes[$field])) {
-            if (!settype($this->changes[$field], $this->schema[$field]['type'])) {
-                $this->addError($field, 'cast');
-            }
+            settype($this->changes[$field], $this->schema[$field]['type']);
         }
     }
 

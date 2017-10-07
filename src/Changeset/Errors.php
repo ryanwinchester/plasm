@@ -6,7 +6,6 @@ trait Errors
 {
     protected $defaultMessages = [
         'acceptance' => 'You must accept {field}',
-        'cast' => 'Unable to cast {field}',
         'change' => '{field} failed validation',
         'confirmation' => '{field} and {field} confirmation do not match',
         'count:is' => 'you do not have {count} {field}s',
