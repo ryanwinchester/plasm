@@ -23,6 +23,7 @@ class TestChangeset extends Changeset
             ])
             ->validateAcceptance('accept_tos')
             ->validateChange('banana_count', $this->validateHasMoreThanTwo())
+            ->validateChange('banana_count', $this->validateHasLessThanFour())
             ->validateConfirmation('password')
             ->validateLength('name', ['min' => 2, 'max' => 16])
             ->validateLength('password_hash', ['is' => 32])
@@ -43,6 +44,18 @@ class TestChangeset extends Changeset
     {
         return function($value) {
             return $value > 2;
+        };
+    }
+
+    /**
+     * Validate if the field has more than two of something.
+     *
+     * @return \Closure
+     */
+    protected function validateHasLessThanFour()
+    {
+        return function($value) {
+            return $value < 4 ?: 'You have to have less than 4, man';
         };
     }
 }

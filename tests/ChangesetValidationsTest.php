@@ -23,6 +23,7 @@ final class ChangesetValidationsTest extends TestCase
     function changeset_empty_attrs()
     {
         $changeset = EmptyChangeset::using(EmptySchema::class)->change([]);
+
         $this->assertTrue($changeset->valid());
     }
 
@@ -30,6 +31,7 @@ final class ChangesetValidationsTest extends TestCase
     function changeset_valid_attrs()
     {
         $changeset = TestChangeset::using(TestSchema::class)->change($this->validAttrs);
+
         $this->assertTrue($changeset->valid());
     }
 
@@ -42,6 +44,7 @@ final class ChangesetValidationsTest extends TestCase
         $attrs['accept_tos'] = '1';
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertTrue($changeset->valid());
     }
 
@@ -52,6 +55,7 @@ final class ChangesetValidationsTest extends TestCase
         $attrs['accept_tos'] = '0';
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertFalse($changeset->valid());
     }
 
@@ -64,6 +68,7 @@ final class ChangesetValidationsTest extends TestCase
         $attrs['banana_count'] = '3';
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertTrue($changeset->valid());
     }
 
@@ -74,7 +79,23 @@ final class ChangesetValidationsTest extends TestCase
         $attrs['banana_count'] = '0';
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertFalse($changeset->valid());
+    }
+
+    /** @test */
+    function validateChange_invalid_with_message()
+    {
+        $attrs = $this->validAttrs;
+        $attrs['banana_count'] = '4';
+
+        $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
+        $this->assertFalse($changeset->valid());
+        $this->assertEquals(
+            'You have to have less than 4, man',
+            $changeset->getErrors('banana_count')[0]
+        );
     }
 
     // confirmation
@@ -87,6 +108,7 @@ final class ChangesetValidationsTest extends TestCase
         $attrs['password_confirmation'] = 'password123';
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertTrue($changeset->valid());
     }
 
@@ -98,6 +120,7 @@ final class ChangesetValidationsTest extends TestCase
         $attrs['password_confirmation'] = '123password';
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertFalse($changeset->valid());
     }
 
@@ -112,6 +135,7 @@ final class ChangesetValidationsTest extends TestCase
         $attrs = array_merge($this->validAttrs, $attrs);
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertTrue($changeset->valid());
     }
 
@@ -124,6 +148,7 @@ final class ChangesetValidationsTest extends TestCase
         $attrs = array_merge($this->validAttrs, $attrs);
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertFalse($changeset->valid());
         $this->assertEquals($errors, $changeset->errors());
     }
@@ -137,6 +162,7 @@ final class ChangesetValidationsTest extends TestCase
         $attrs['foo'] = 'zing';
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertTrue($changeset->valid());
     }
 
@@ -147,6 +173,7 @@ final class ChangesetValidationsTest extends TestCase
         $attrs['foo'] = 'bar';
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertFalse($changeset->valid());
     }
 
@@ -159,6 +186,7 @@ final class ChangesetValidationsTest extends TestCase
         $attrs['email'] = 'joe@joe.joe';
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertTrue($changeset->valid());
     }
 
@@ -169,6 +197,7 @@ final class ChangesetValidationsTest extends TestCase
         $attrs['email'] = 'joe joe';
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertFalse($changeset->valid());
     }
 
@@ -181,6 +210,7 @@ final class ChangesetValidationsTest extends TestCase
         $attrs['bar'] = 'x';
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertTrue($changeset->valid());
     }
 
@@ -191,6 +221,7 @@ final class ChangesetValidationsTest extends TestCase
         $attrs['bar'] = 'z';
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertFalse($changeset->valid());
     }
 
@@ -205,6 +236,7 @@ final class ChangesetValidationsTest extends TestCase
         $attrs = array_merge($this->validAttrs, $attrs);
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertTrue($changeset->valid());
     }
 
@@ -217,6 +249,7 @@ final class ChangesetValidationsTest extends TestCase
         $attrs = array_merge($this->validAttrs, $attrs);
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertFalse($changeset->valid());
         $this->assertEquals($errors, $changeset->errors());
     }
@@ -258,6 +291,7 @@ final class ChangesetValidationsTest extends TestCase
         unset($attrs['name']);
 
         $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
         $this->assertFalse($changeset->valid());
     }
 

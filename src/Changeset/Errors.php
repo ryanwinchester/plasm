@@ -47,13 +47,13 @@ trait Errors
     }
 
     /**
-     * Add to or override default error messages.
-     *
-     * @return array
+     * Get the error message for a field.
+     * @param string $field
+     * @return mixed
      */
-    protected function messages()
+    public function getErrors($field)
     {
-        return [];
+        return $this->errors[$field];
     }
 
     /**
