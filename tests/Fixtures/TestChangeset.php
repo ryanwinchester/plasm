@@ -19,7 +19,7 @@ class TestChangeset extends Changeset
             ->cast($attrs, [
                 'name', 'email', 'is_admin', 'age', 'money', 'password',
                 'password_confirmation', 'password_hash', 'skill', 'topic',
-                'foo', 'bar', 'accept_tos', 'banana_count',
+                'foo', 'bar', 'accept_tos', 'banana_count', 'things',
             ])
             ->validateAcceptance('accept_tos')
             ->validateChange('banana_count', $this->validateHasMoreThanTwo())
@@ -32,6 +32,7 @@ class TestChangeset extends Changeset
             ->validateExclusion('foo', ['bar', 'baz'])
             ->validateFormat('email', '/^.+@.+\..+$/')
             ->validateInclusion('bar', ['x', 'y'])
+            ->validateSubset('things', [1, 2, 3, 4, 5, 6])
             ->validateRequired('name', 'email');
     }
 

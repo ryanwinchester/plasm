@@ -295,32 +295,28 @@ final class ChangesetValidationsTest extends TestCase
         $this->assertFalse($changeset->valid());
     }
 
-    // subset TODO
+    // subset
 
     /** @test */
     function validateSubset_valid()
     {
-        // $attrs = $this->validAttrs;
-        //
-        // $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
-        // $this->assertTrue($changeset->valid());
+        $attrs = $this->validAttrs;
+        $attrs['things'] = [2, 3, 4];
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
+        $this->assertTrue($changeset->valid());
     }
 
     /** @test */
     function validateSubset_invalid()
     {
-        // $attrs = $this->validAttrs;
-        //
-        // $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
-        // $this->assertFalse($changeset->valid());
+        $attrs = $this->validAttrs;
+        $attrs['things'] = [4, 5, 6, 7];
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
+        $this->assertFalse($changeset->valid());
     }
 
     function validCountProvider()

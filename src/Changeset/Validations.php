@@ -172,12 +172,18 @@ trait Validations
      * Validates a change, in an array, is a subset of the given array.
      * Like validateInclusion() for arrays.
      */
-    // public function validateSubset($field, $set, $message = null)
-    // {
-    //     // TODO: Implement validateSubset
-    //
-    //     return $this;
-    // }
+    public function validateSubset($field, $set, $message = null)
+    {
+        $subset = $this->changes[$field] ?? false;
+
+        if (
+            $subset && count($subset) !== count(array_intersect($subset, $set))
+        ) {
+            $this->addError($field, 'subset', $message);
+        }
+
+        return $this;
+    }
 
     /**
      * Validates countable $field against $rules.

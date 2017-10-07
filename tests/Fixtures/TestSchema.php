@@ -28,6 +28,7 @@ class TestSchema extends Schema
             'foo' => ['type' => 'string'],
             'bar' => ['type' => 'string'],
             'banana_count' => ['type' => 'integer'],
+            'things' => ['type' => 'array'],
         ];
     }
 }
