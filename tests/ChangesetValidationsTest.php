@@ -254,32 +254,33 @@ final class ChangesetValidationsTest extends TestCase
         $this->assertEquals($errors, $changeset->errors());
     }
 
-    // number TODO
+    // number
 
-    /** @test */
-    function validateNumber_valid()
+    /**
+     * @test
+     * @dataProvider validNumberProvider
+     */
+    function validateNumber_valid($attrs)
     {
-        // $attrs = $this->validAttrs;
-        //
-        // $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
-        // $this->assertTrue($changeset->valid());
+        $attrs = array_merge($this->validAttrs, $attrs);
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
+        $this->assertTrue($changeset->valid());
     }
 
-    /** @test */
-    function validateNumber_invalid()
+    /**
+     * @test
+     * @dataProvider invalidNumberProvider
+     */
+    function validateNumber_invalid($attrs, $errors)
     {
-        // $attrs = $this->validAttrs;
-        //
-        // $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
-        // $this->assertFalse($changeset->valid());
+        $attrs = array_merge($this->validAttrs, $attrs);
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $changeset = TestChangeset::using(TestSchema::class)->change($attrs);
+
+        $this->assertFalse($changeset->valid());
+        $this->assertEquals($errors, $changeset->errors());
     }
 
     // required
@@ -373,6 +374,43 @@ final class ChangesetValidationsTest extends TestCase
             'test invalid length:is rule'  => [
                 ['password_hash' => sha1('password')],
                 ['password_hash' => ['you do not have 32 Password hashs']],
+            ],
+        ];
+    }
+
+    function validNumberProvider()
+    {
+        return [
+            'test valid number:less_than rule' => [['money' => 999]],
+            'test valid number:greater_than rule' => [['money' => 1.01]],
+            'test valid number:less_than_or_equal_to rule' => [['age' => 60]],
+            'test valid number:greater_than_or_equal_to rule' => [['age' => 18]],
+            'test valid number:equal_to rule' => [['lucky' => 7]],
+        ];
+    }
+
+    function invalidNumberProvider()
+    {
+        return [
+            'test invalid number:less_than rule' => [
+                ['money' => 1000],
+                ['money' => ['Money should be less than 1000']],
+            ],
+            'test invalid number:greater_than rule' => [
+                ['money' => 1],
+                ['money' => ['Money should be greater than 1']],
+            ],
+            'test invalid number:less_than_or_equal_to rule' => [
+                ['age' => 61],
+                ['age' => ['Age should be less than or equal to 60']],
+            ],
+            'test invalid number:greater_than_or_equal_to rule' => [
+                ['age' => 17],
+                ['age' => ['Age should be greater than or equal to 18']],
+            ],
+            'test invalid number:equal_to rule' => [
+                ['lucky' => 13],
+                ['lucky' => ['Lucky should be equal to 7']],
             ],
         ];
     }
