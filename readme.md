@@ -7,22 +7,23 @@
 
 Filter, cast, and validate incoming data from **forms**, **API**s, **CLI**, etc.
 
-Schema and Changeset for PHP inspired and modeled after `Ecto.Changeset` from [Elixir's Ecto library](https://hexdocs.pm/ecto/Ecto.Changeset.html).
+Schema and Changeset for PHP are inspired by `Ecto.Changeset`
+from [Elixir's Ecto library](https://hexdocs.pm/ecto/Ecto.Changeset.html).
 
 ### In Development!
 
 
-### TODO
+### Planned for V1.0:
 
 - [ ] Default messages str replacements
-- [ ] Finish implementing validators
-- [ ] figure out how to do db constraints (unique etc)
-- [ ] framework/orm integrations
+- [ ] Finish default validators
+- [ ] One or two provided Framework/ORM integrations
+- [ ] Figure how to implement DB constraints from Integrations (unique, etc.)
 
 
-### Example
+## Usage
 
-#### 1) Define a Schema:
+### 1) Define a Schema:
 
 In the schema we specify all the fields we care about and specify what type
 we want them to be cast to.
@@ -57,7 +58,7 @@ class UserSchema extends Schema
 }
 ```
 
-#### 2) Define a Changeset:
+### 2) Define a Changeset:
 
 You can define multiple changesets in the same class. You can create completely different ones or build on top of others.
 
@@ -68,12 +69,9 @@ making some of the fields required.
 <?php
 
 use Plasm\Changeset;
-use Plasm\Integrations\EloquentChangesets;
 
 class UserChangeset extends Changeset
 {
-    use EloquentChangesets;
-
     /**
      * Changeset for a User.
      */
@@ -102,6 +100,9 @@ class UserChangeset extends Changeset
             );
     }
 
+    /**
+     * A custom validator for checking password strength.
+     */
     private function validatePassStrength()
     {
         return function($password) {
@@ -114,7 +115,7 @@ class UserChangeset extends Changeset
 }
 ```
 
-#### 3) Use them somewhere:
+### 3) Use them somewhere:
 
 Just for example's sake, the example below looks a lot like a typical Laravel controller's
 `store` method.
@@ -123,7 +124,7 @@ We'll pass all the request data into the `createChangeset` changeset and
 not worry since our `cast` method will filter out the fields we specify, cast them
 to their specified types, and validate them.
 
-Since we used the `EloquentChangesets` trait we can call the `save` method after checking
+If we used the `EloquentChangesets` trait we could call the `createModel` method after checking
 if the changeset is valid. If it wasn't valid we can return to the view with the changeset
 and display the changeset errors to the user.
 
