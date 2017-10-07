@@ -20,6 +20,13 @@ from [Elixir's Ecto library](https://hexdocs.pm/ecto/Ecto.Changeset.html).
 - [ ] One or two provided Framework/ORM integrations
 - [ ] Figure how to implement DB constraints from Integrations (unique, etc.)
 
+## Install
+
+Use [composer](https://getcomposer.org).
+
+```sh
+composer require plasm/plasm:dev-master@dev
+```
 
 ## Usage
 
